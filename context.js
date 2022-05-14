@@ -2,12 +2,7 @@ const Route       = ReactRouterDOM.Route;
 const Link        = ReactRouterDOM.Link;
 const HashRouter  = ReactRouterDOM.HashRouter;
 const UserContext = React.createContext(null);
-const activePage = window.location.pathname;
-const navLinks = document.querySelectorAll('nav a').forEach(link => {
-  if(link.href.includes(`${activePage}`)) {
-    link.classList.add(`active`);
-  }
-})
+
 
 function Card(props){
     function classes(){
