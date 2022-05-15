@@ -28,7 +28,8 @@
 
     <!-- load our react component. -->
     <script src="context.js" defer type="text/babel"></script>
-    <script src="navbar.js" defer type="text/babel"></script>
+    <script src="navbar.js" defer type="text/babel">
+    </script>
     <script src="createaccount.js" defer type="text/babel"></script>
     <script src="login.js" defer type="text/babel"></script>
     <script src="deposit.js" defer type="text/babel"></script>
@@ -38,13 +39,15 @@
     <script src="home.js" defer type="text/babel"></script>
     <script src="index.js" defer type="text/babel"></script>
     <link rel="stylesheet" href="styles.css">
-    <script type="text/javascript">
-      const activePage = window.location.pathname;
-      const navLinks = document.querySelectorAll('nav a').forEach(link => {
-        if(link.href.includes(`${activePage}`)){
-          link.classList.add('active');
+    <script>
+      let links = document.querySelectorAll(".nav-item a");
+      let divId = document.querySelector("div").id;
+      for(let link of links){
+        if (link.dataset.active == divId) {
+          link.classList.add("active");
+          
         }
-      })
-      </script>
+      }
+    </script>
   </body>
 </html>

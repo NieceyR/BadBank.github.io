@@ -1,4 +1,4 @@
-a:is(:link :active :visited).active {
+nav a.active {
     color: black;
     background-color: white;
 }
