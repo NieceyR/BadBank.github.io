@@ -15,7 +15,7 @@ function CreateAccount(){
         }
         return true;
     }
-
+// hello help me 
     function handleCreate(){
         console.log(name, email, password);
         if(!validate(name, 'name')) return;
