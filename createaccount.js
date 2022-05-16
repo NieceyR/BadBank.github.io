@@ -4,7 +4,6 @@ function CreateAccount(){
     const [name, setName] = React.useState('');
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
-    const [pass, setPass] = React.useState('');
     const ctx = React.useContext(UserContext); 
 
     function validate(field, label) {
@@ -26,17 +25,6 @@ function CreateAccount(){
 
     }
 
-    function pass(inputtxt) { 
-        var passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
-        if(inputtxt.value.match(passw)) { 
-        alert('Correct, try another...')
-        return true;
-    } else { 
-        alert('Wrong...!')
-        return false;
-    }
-}
-
     
     
     
@@ -45,7 +33,6 @@ function CreateAccount(){
         setEmail('');
         setPassword('');
         setShow(true);
-        setPass('');
     }
     
     return (
