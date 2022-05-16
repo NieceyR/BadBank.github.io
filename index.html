@@ -44,9 +44,9 @@
       function locationHashChanged() {
         let link = document.getElementsByClassName("nav-item");
         for (let i = 0; i < link.length; i++) {
-          let el = document.getElementById(link[i].id);
+          let element = document.getElementById(link[i].id);
           location.hash === "#/" + link[i].id + "/" ?
-          (el.style.backgroundColor = "#F73D93",el.style.borderRadius = "5px") :  (el.style.backgroundColor = "##212529",el.style.borderRadius = "5px")
+          (element.style.backgroundColor = "#F73D93", element.style.borderRadius = "5px") :  (element.style.backgroundColor = "##212529",element.style.borderRadius = "5px")
           
         }
       }
