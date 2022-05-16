@@ -39,12 +39,13 @@
     <script src="home.js" defer type="text/babel"></script>
     <script src="index.js" defer type="text/babel"></script>
     <link rel="stylesheet" href="styles.css">
-    <script>
-      let links = document.querySelectorAll(".nav-item a");
-      let divId = document.querySelector("div").id;
-      for(let link of links){
-        if (link.dataset.active == divId) {
-          link.classList.add("active");
+    <script type="text/javascript">
+      function locationHashChanged() {
+        let link = document.getElementsByClassName("nav-item");
+        for (let i = 0; i < link.length; i++) {
+          let el = document.getElementById(link[i].id);
+          location.hash === "#/" + link[i].id + "/" ?
+          (el.style.backgroundColor = "#F73D93",el.style.borderRadius = "5px") :  (el.style.backgroundColor = "##212529",el.style.borderRadius = "5px")
           
         }
       }
