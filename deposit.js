@@ -1,4 +1,5 @@
 function Deposit(){
+    const ctx = React.useContext(UserContext);
     return (
       <>
       <h5>Deposit</h5>
