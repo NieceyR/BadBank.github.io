@@ -1,4 +1,6 @@
 function Home(){
+   const ctx = React.useContext(UserContext);
+   console.log(ctx.users)
     return (
      <Card
         txtcolor = "black"
