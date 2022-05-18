@@ -18,18 +18,18 @@ function CreateAccount(){
 // hello help me 
     function handleCreate(){
         console.log(name, email, password);
+        if (password.length < 8) {
+            setWarn('Password must be a min of 8 characters');
+            setTimeout(() => setWarn(''), 3000);
+            return;
+        }
+        console.log(name, email, password);
         if(!validate(name, 'name')) return;
         if(!validate(email, 'email')) return;
         if(!validate(password, 'password')) return;
         ctx.users.push({name, email, password, balance:100});
         setShow(false);
 
-    }
-
-    if (password.length < 8) {
-        setWarn('Password must be a min of 8 characters');
-        setTimeout(() => setWarn(''), 3000);
-        return;
     }
 
     

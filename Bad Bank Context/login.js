@@ -1,4 +1,5 @@
 function Login(){
+  console.log("YOURE IN THE LOGIN COMPONENT-----")
   const [show, setShow] = React.useState(true);
   const [status, setStatus] = React.useState(' ');
   return (
@@ -23,7 +24,7 @@ function LoginMsg(props){
   </>);
 }
 
-function LoginMsg(props) {
+function LoginForm(props) {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] =React.useState('');
 
