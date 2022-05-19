@@ -42,7 +42,12 @@ function Deposit(){
     Email address<br/>
     <input type="input" className="form-control" placeholder="Enter email" value={email} onChange={e => setEmail(e.currentTarget.value)}/><br/>
 
+    Amount<br/>
+    <input type="number" className="form-control" placeholder="Enter amount" value={amount} onChange={e => setAmount(e.currentTarget.value)}/><br/>
+
     <button type="submit" className="btn btn-light" onClick={handle}>Deposit</button>
     </>);
+
+
   }
   
