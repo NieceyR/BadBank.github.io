@@ -27,13 +27,15 @@ function Withdraw() {
     if(e.target.value === null) {
       setButtonStatus(true)
       setWithdraw(e.currentTarget.value)
+    } else {
+      setButtonStatus(false)
+      setWithdraw(e.currentTarget.value)
     }
   }
 
   function handleWithdraw() {
     if(!isNaN(withdraw) && withdraw > 0 && withdraw <= balance) {
       let newBalance = Number(balance) - Number(withdraw);
-
       let tracker = false;
       for(const {email, password, balance} of ctx.users) {
         if (userEmail === email && userPassword === password) {
@@ -46,30 +48,27 @@ function Withdraw() {
       }
     }
 
-    if (tracker) {
-      setStatus(`Success! $${withdraw} withdrawn from account.`);
+    if(tracker) {
+      setStatus(`Success! $${withdraw} withdrawn from account`);
       setTimeout(() => setStatus(''), 6000);
       setWithdraw('');
       setBalance(Number(newBalance));
-    } 
-
-  } else if (withdraw > balance) {
+    } else if (withdraw > balance) {
       setStatus(`Transaction failed. Withdraw amount must be less than $${balance}.`);
       setWithdraw('');
       setTimeout(() => setStatus(''), 6000);
       alert(`Transaction failed. Withdraw amount must be less than $${balance}.`)
-  } else if (!isNaN(withdraw)) {
-    setStatus('Error: must be greater than $0.00.');
-    setWithdraw('');
-    setTimeout(() => setStatus(''), 3000);
-  } else {
-    setStatus('Must enter a numerical amount to withdraw');
-    setWithdraw('');
-    setTimeout(() => setStatus(''), 3000);
-    alert('Please enter a numerical amount to withdraw.');
-  }
-  return;
-}
+    } else if (!isNaN(withdraw)) {
+      setStatus('Error: must be greater than $0.00');
+      setWithdraw('');
+      setTimeout(() => setStatus(''), 3000);
+      alert('Please enter a numerical amount to withdraw');
+    }
+    return;
+
+} 
+
+
 
 return (
   <Card 
@@ -115,4 +114,4 @@ return (
     }
     />
 );
-
+  }
