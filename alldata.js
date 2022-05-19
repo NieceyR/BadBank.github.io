@@ -1,16 +1,18 @@
 function AllData(){
-  const [data, setData] = React.useState('');
-
-  React.useEffect(() => {
-    fetch('/account/all').then(response => response.json()).then(data => {
-      console.log(data);
-      setData(JSON.stringify(data));
-    });
-  }, []);
-  return (
-    <>
-    <h5>All Data in Store</h5>
-    {data}
-    </>
-  );
+    const ctx = React.useContext(UserContext);
+    return (
+      <>
+      {ctx.users.map((ctx, i) => (
+        <Card
+          key={i}
+          bgcolor="primary"
+          txtcolor="black"
+          header={'Account information for: ' + ctx.name}
+          title={"Balance: $" + ctx.balance}
+          text={"Email: " + ctx.email}
+          body={"Password: " + ctx.password}
+          />
+      ))}
+      </>
+    );
 }
