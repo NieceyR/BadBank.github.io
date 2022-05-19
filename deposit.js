@@ -83,9 +83,7 @@ function Deposit(){
         status={status}
         body={
           show ? (
-            <> 
-
-            You must <a href="#/login/" className="btnDeposit" data-toggle="tooltip" title= "Login to your account">login</a> {' '} to make a transaction.
+            <> You must <a href="#/login/" className="btnDeposit" data-toggle="tooltip" title="Login to your account">login</a>{' '}to make a transaction.
             <br/>
             <br/>
             </>
