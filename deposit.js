@@ -7,7 +7,7 @@ function Deposit(){
     const [balance, setBalance] = React.useState('');
     const [deposit, setDeposit] = React.useState('');
     const [isValid, setIsValid] = React.useState(false);
-    const ctx = React.useContect(UserContext);
+    const ctx = React.useContext(UserContext);
     const [buttonStatus, setButtonStatus] = React.useState(true);
 
     if (show) {
