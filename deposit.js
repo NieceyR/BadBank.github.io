@@ -1,16 +1,48 @@
 function Deposit(){
-    const ctx = React.useContext(UserContext);
+    const [show, setShow] = React.useState(true);
+    const [status, setStatus] = React.useState(' ');
+
     return ( 
-      <>
-        <div class="card" style="width: 18rem;">
-      <div class="card-body">
-        <h5 class="card-title">Deposit</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Deposit</a>
-      </div>
-    </div>
-      {JSON.stringify(ctx)}<br/>
-      </>
+      <Card
+      bgcolor= "secondary"
+      header="Deposit"
+      status={status}
+      body={show ?
+      <DepositForm setShow={setShow}/> :
+      <DepositMsg setShow={setShow}/>}
+      />
+     
     );
+  }
+
+  function DepositMsg(props) {
+    return(<>
+    <h5>Deposit Amount</h5>
+    <button type="submit" className="btn btn-light" onClick={() => props.setShow(true)}>Success!</button>
+    
+    </>);
+  }
+
+  function DepositForm(props) {
+    const [email, setEmail] = React.useState('');
+    const [amount, setAmount] = React.useState('');
+
+    function handle(){
+      console.log(email, amount);
+      const url = `/account/deposit/${email}/${amount}`;
+      (async () => {
+        var res = await fetch(url);
+        var data = await res.json();
+        console.log(data);
+      })();
+      props.setShow(false);
+    }
+    return(<>
+    
+    Email address<br/>
+    <input type="input" className="form-control" placeholder="Enter email" value={email} onChange={e => setEmail(e.currentTarget.value)}/><br/>
+
+    <button type="submit" className="btn btn-light" onClick={handle}>Deposit</button>
+    </>);
   }
   
