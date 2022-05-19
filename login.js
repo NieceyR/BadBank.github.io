@@ -1,5 +1,4 @@
 function Login(){
-  console.log("YOURE IN THE LOGIN COMPONENT-----")
   const [show, setShow] = React.useState(true);
   const [status, setStatus] = React.useState(' ');
   return (
