@@ -4,7 +4,8 @@ const url = process.env.MONGODB_URI;
 const dbName = "badbank"
 let db = new MongoClient(url);
 
-//connect to mongo
+
+// connect to mongo
 MongoClient.connect(url, { useNewUrlParser:true, useUnifiedTopology: true}, function(err, client) {
     console.log("Connected succesfully to db server", err);
 
