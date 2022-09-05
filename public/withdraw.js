@@ -1,117 +1,122 @@
 function Withdraw() {
-  const [withdraw, setWithdraw] = React.useState('');
   const [show, setShow] = React.useState(true);
-  const [status, setStatus] = React.useState('');
-  const [user, setUser] = React.useState('');
-  const [userEmail, setUserEmail] = React.useState('');
-  const [userPassword, setUserPassword] = React.useState('');
-  const [balance, setBalance] = React.useState('');
-  const [buttonStatus, setButtonStatus] = React.useState('');
-  const ctx = React.useContext(UserContext);
+  const [status, setStatus] = React.useState("");
+  const [withdraw, setWithdraw] = React.useState("");
+  const [account, setAccount] = React.useState({});
 
-  if (show) {
-    for(const {name, email, password, balance, loggedin} of ctx.users) {
-      if(loggedin) {
-        setShow(false);
-        setUser(name);
-        setUserEmail(email);
-        setUserPassword(password);
-        setBalance(balance);
-
-        return;
+  return (
+    <Card
+      bgcolor="success"
+      header="Withdraw"
+      status={status}
+      body={
+        show ? (
+          <WithdrawForm
+            setShow={setShow}
+            setWithdraw={setWithdraw}
+            setStatus={setStatus}
+            withdraw={withdraw}
+            setAccount={setAccount}
+          />
+        ) : (
+          <WithdrawMsg setShow={setShow} />
+        )
       }
-    }
-  }
-
-  function handleChange(e){
-    if(e.target.value === null) {
-      setButtonStatus(true)
-      setWithdraw(e.currentTarget.value)
-    } else {
-      setButtonStatus(false)
-      setWithdraw(e.currentTarget.value)
-    }
-  }
-
-  function handleWithdraw() {
-    if(!isNaN(withdraw) && withdraw > 0 && withdraw <= balance) {
-      let newBalance = Number(balance) - Number(withdraw);
-      let tracker = false;
-      for(const {email, password, balance} of ctx.users) {
-        if (userEmail === email && userPassword === password) {
-          for (var i = 0, length = ctx.users.length; i < length; i++) {
-            ctx.users[i].balance = Number(newBalance);
-
-            tracker = true;
-          }
-        }
-      }
-    }
-
-    if(tracker) {
-      setStatus(`Success! $${withdraw} withdrawn from account`);
-      setTimeout(() => setStatus(''), 6000);
-      setWithdraw('');
-      setBalance(Number(newBalance));
-    } else if (withdraw > balance) {
-      setStatus(`Transaction failed. Withdraw amount must be less than $${balance}.`);
-      setWithdraw('');
-      setTimeout(() => setStatus(''), 6000);
-      alert(`Transaction failed. Withdraw amount must be less than $${balance}.`)
-    } else if (!isNaN(withdraw)) {
-      setStatus('Error: must be greater than $0.00');
-      setWithdraw('');
-      setTimeout(() => setStatus(''), 3000);
-      alert('Please enter a numerical amount to withdraw');
-    }
-    return;
-
-} 
-
-
-
-return (
-  <Card 
-    bgcolor="secondary"
-    txtcolor="black"
-    header="Withdraw"
-    status={status}
-    body={
-      show ? (
-        <> You must <a href="#/login/" className="btnDeposit" data-toggle="tooltip"
-        title="Login to your account">Login</a>{' '}
-        <br/>
-        <br/>
-        
-        </>
-      ) : (
-        <>
-          <h3>Current Balance: ${balance}</h3>
-          <br/>
-          <br/>
-          Withdrawl Amount:
-          <br/>
-          <input 
-          type="input"
-          className="form-control"
-          id="deposit"
-          placeholder="$0.00"
-          value={withdraw}
-          onChange={handleChange}
-        />
-        <br/>
-        <button
-          type="submit"
-          className="btn btn-light"
-          bgcolor="dark"
-          disabled={buttonStatus}
-          onClick={handleWithdraw}
-        >Withdraw</button>
-        <br/>
-        <br/>
-        </>
-      )
-    }
     />
-);
+  );
+}
+
+function WithdrawMsg(props) {
+  return (
+    <>
+      <h5>Withdrawl Amount</h5>
+      <button
+        type="submit"
+        className="btn btn-light"
+        onClick={() => {
+          props.setShow(false);
+        }}
+      >
+        Successful Withdrawal!
+      </button>
+    </>
+  );
+}
+
+function getAccount(email, setAccount) {
+  const url = `/account/find/${email}`;
+  (async () => {
+    const res = await fetch(url);
+    const data = await res.json();
+    setAccount(data[0]);
+  })();
+}
+
+function validate(num, setStatus) {
+  if (isNaN(parseFloat(num))) {
+    setStatus("Error: Please enter numbers Only");
+    setTimeout(() => setStatus(""), 3000);
+    return false;
   }
+  return true;
+}
+
+function WithdrawForm(props) {
+  const [email, setEmail] = React.useState("");
+  const [amount, setAmount] = React.useState("");
+
+  const { user } = React.useContext(UserContext);
+
+  function handle() {
+    if (user?.email === email) {
+      if (!validate(amount, props.setStatus)) return;
+      const url = "/account/updateWithdraw";
+      (async () => {
+        const res = await fetch(url, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, amount }),
+        });
+        const data = await res.json();
+      })();
+      getAccount(email, props.setAccount);
+      props.setShow(false);
+      clearForm(props.setWithdraw, props.setShow);
+    } else {
+      alert('please enter your email address');
+    }
+  }
+
+  function clearForm(setWithdraw, setShow) {
+    setWithdraw("");
+    setShow(false);
+  }
+
+  return (
+    <>
+      Email
+      <br />
+      <input
+        type="input"
+        className="form-control"
+        placeholder="Enter email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      <br />
+      Amount
+      <br />
+      <input
+        type="number"
+        className="form-control"
+        placeholder="Enter amount"
+        value={amount}
+        onChange={(e) => setAmount(e.target.value)}
+      />
+      <br />
+      <button type="submit" className="btn btn-light" onClick={handle}>
+        Withdraw
+      </button>
+    </>
+  );
+}

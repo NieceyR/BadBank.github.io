@@ -3,3 +3,7 @@ a.nav-link:hover{
     border-radius: 5px;
     background: #F73D93;
 }
+
+#logout{
+    float: right;
+}

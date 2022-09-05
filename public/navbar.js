@@ -1,34 +1,89 @@
-function NavBar(){
-    return(
-      <>
-      <nav className="navbar navbar-expand-lg navbar navbar-dark bg-dark">
-        <a className="navbar-brand" href="#">BadBank</a>
-        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav">
+function NavBar() {
+  const {setUser, user} = React.useContext(UserContext);
+  const Link = ReactRouterDOM.Link;
+  const history = ReactRouterDOM.useHistory();
+
+  const handlelogout = () => {
+    setUser(null);
+    localStorage.clear();
+    history.push("/");
+  };
+
+  return (
+    <nav className="navbar navbar-expand-lg navbar-dark bg-info">
+      <Link className="navbar-brand" to="#">
+        BadBank
+      </Link>
+      <button
+        className="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+
+      >
+        <span className="navbar-toggler-icon"></span>
+
+      </button>
+      <div
+        className="collapse navbar-collapse d-lg-inline-flex flex-lg-row-reverse"
+        id="navbarNav"
+      >
+        <ul className="navbar-nav">
+          {user ? (
+            <>
+              <li className="nav-item">
+                <Link
+                  className="nav-link"
+                  id="logout"
+                  to="#"
+                  onClick={handlelogout}
+                >
+                Logout
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/deposit">
+                  Deposit                
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/withdraw">
+                  Withdraw                
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/alldata">
+                  AllData                
+                </Link>
+              </li>
+            </>
+          ): (
+            <>
             <li className="nav-item">
-              <a className="nav-link" href="#/CreateAccount/" title ="Create an account to get started!">Create Account</a>
+              <Link className="nav-link" to="/create-account">
+                Create Account
+              </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#/login/" title="Already have an account? Log back in!">Login</a>
+              <Link className="nav-link" to="/login">
+                Login
+              </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#/deposit/" title="Make a deposit">Deposit</a>
+              <a className="nav-link" href="/login/google">
+                Login With Google
+              </a>
             </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#/withdraw/" title="Make a withdrawl">Withdraw</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#/balance/" title="Check your remaining balance">Balance</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#/alldata/" title="View your data">AllData</a>
-            </li>          
-          </ul>
-        </div>
-      </nav>
-      </>
-    );
-  }
+            </>
+          )}
+
+          <li className="nav-item float-right">{user?.name} </li>
+        </ul>
+      </div>
+    </nav>
+  );
+}
+
