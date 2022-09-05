@@ -13,8 +13,6 @@ passport.use(
             clientSecret: process.env["GOOGLE_CLIENT_SECRET"],
             callbackURL: "https://localhost:3000/auth/redirect/callback",
             scope: ["email"],
-            callbackURL: "/oauth2/redirect/google",
-            scope: ["profile, email"],
             state: true,
         },
         function (accessToken, refreshToken, profile, cb) {
