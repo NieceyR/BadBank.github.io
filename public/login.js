@@ -5,7 +5,7 @@ function Login(props) {
   return (
     <Card
       bgcolor="secondary"
-      header="Login"
+      header="Login Here. Don't have an account? Create one!"
       status={status}
       body= {
         show ? <LoginForm setShow={setShow} /> : <LoginMsg setShow={setShow} />

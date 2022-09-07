@@ -54,7 +54,7 @@ const CreateAccount = () => {
     return (
         <Card
           bgcolor = "primary"
-          header = "Create Account"
+          header = "Create an account, or log in if you already have one!"
           status = {status}
           body = {
             show ? (
