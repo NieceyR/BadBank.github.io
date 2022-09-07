@@ -11,7 +11,7 @@ passport.use(
         {
             clientID: process.env["GOOGLE_CLIENT_ID"],
             clientSecret: process.env["GOOGLE_CLIENT_SECRET"],
-            callbackURL: "https://badbanking-application.herokuapp.com/oauth2/redirect/callback",
+            callbackURL: "https://badbanking-application.herokuapp.com/oauth2/redirect/google",
             scope: ["email"],
             state: true,
         },
@@ -56,7 +56,7 @@ const router = express.Router();
 router.get("/login/google", passport.authenticate("google"));
 
 router.get(
-    "https://badbanking-application.herokuapp.com/oauth2/redirect/callback",
+    "https://badbanking-application.herokuapp.com/oauth2/redirect/google",
     passport.authenticate("google", {
         failureRedirect: "/login",
     }),
