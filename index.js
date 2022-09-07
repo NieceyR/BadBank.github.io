@@ -88,7 +88,7 @@ passport.authenticate("google", {
 (req, res) => {
     console.log("requ=>>", req.user);
     res.redirect(`/?name=${req.user.name}&email=${req.user.email}`);
-})
+});
 
 app.get('/account/find/:email', function (req, res) {
     dal.find(req.params.email).then((user) => {
