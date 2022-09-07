@@ -81,11 +81,7 @@ app.get('/account/login/:email/:password', function(req, res) {
     });
 });
 
-app.get('/oauth2/redirect/google' ,
-passport.authenticate("google", {
-    failureRedirect: "/login",
-}),
-(req, res) => {
+app.get('/oauth2/redirect/google', function(req, res) {
     console.log("requ=>>", req.user);
     res.redirect(`/?name=${req.user.name}&email=${req.user.email}`);
 })
