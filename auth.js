@@ -57,7 +57,7 @@ const router = express.Router();
 router.get("/login/google", passport.authenticate("google"));
 
 router.get(
-    "https://badbanking-application.herokuapp.com/oauth2/redirect/google",
+    "/oauth2/redirect/google",
     passport.authenticate("google", {
         failureRedirect: "/login",
     }),
