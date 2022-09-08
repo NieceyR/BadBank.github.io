@@ -12,7 +12,6 @@ passport.use(
             clientID: process.env["GOOGLE_CLIENT_ID"],
             clientSecret: process.env["GOOGLE_CLIENT_SECRET"],
             callbackURL: "https://badbanking-application.herokuapp.com/oauth2/redirect/google",
-            responseType: ["token"],
             scope: ["email"],
             state: true,
         },
